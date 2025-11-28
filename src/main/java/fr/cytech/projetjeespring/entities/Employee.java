@@ -50,6 +50,7 @@ public class Employee {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     @Getter
+    @Setter
     private Department department;
 
     // Sinon on a une FAT récurison infinie, woups!
