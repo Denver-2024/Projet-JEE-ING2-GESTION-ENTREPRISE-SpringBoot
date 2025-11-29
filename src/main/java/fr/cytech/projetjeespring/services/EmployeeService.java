@@ -1,8 +1,10 @@
 package fr.cytech.projetjeespring.services;
 
+import fr.cytech.projetjeespring.entities.Department;
 import fr.cytech.projetjeespring.entities.Employee;
 import fr.cytech.projetjeespring.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,10 @@ public class EmployeeService {
 
     public Employee findById(Integer id) {
         return employeeRepository.findById(id).orElse(null);
+    }
+
+    public List<Employee> findByExample(Employee probe) {
+        return employeeRepository.findAll(Example.of(probe));
     }
 
     public Employee save(Employee employee) {

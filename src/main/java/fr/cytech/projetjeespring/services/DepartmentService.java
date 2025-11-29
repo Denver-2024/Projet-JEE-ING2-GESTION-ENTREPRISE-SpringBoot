@@ -5,6 +5,7 @@ import fr.cytech.projetjeespring.entities.Employee;
 import fr.cytech.projetjeespring.repositories.DepartmentRepository;
 import fr.cytech.projetjeespring.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,10 @@ public class DepartmentService {
 
     public Department findById(Integer id) {
         return departmentRepository.findById(id).orElse(null);
+    }
+
+    public List<Department> findByExample(Department probe) {
+        return departmentRepository.findAll(Example.of(probe));
     }
 
     // Petit check pour voir si le chef existe
