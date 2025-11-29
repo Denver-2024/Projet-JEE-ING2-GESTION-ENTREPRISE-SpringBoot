@@ -1,4 +1,4 @@
-package fr.cytech.projetjeespring.controllers;
+package fr.cytech.projetjeespring.controllers.hr;
 
 import fr.cytech.projetjeespring.entities.Absence;
 import fr.cytech.projetjeespring.entities.Bonus;

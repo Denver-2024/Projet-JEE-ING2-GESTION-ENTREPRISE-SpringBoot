@@ -1,4 +1,4 @@
-package fr.cytech.projetjeespring.controllers;
+package fr.cytech.projetjeespring.controllers.payroll;
 
 import fr.cytech.projetjeespring.entities.Employee;
 import fr.cytech.projetjeespring.entities.PayrollDeduction;

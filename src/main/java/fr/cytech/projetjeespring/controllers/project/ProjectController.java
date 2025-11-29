@@ -1,4 +1,4 @@
-package fr.cytech.projetjeespring.controllers.tests;
+package fr.cytech.projetjeespring.controllers.project;
 
 import fr.cytech.projetjeespring.entities.Project;
 import fr.cytech.projetjeespring.services.DepartmentService;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/db-test/projects")
 @RequiredArgsConstructor
-public class ProjectCrudTest {
+public class ProjectController {
 
     private final ProjectService projectService;
     private final DepartmentService departmentService;

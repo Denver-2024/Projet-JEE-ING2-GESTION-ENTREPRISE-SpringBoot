@@ -1,4 +1,4 @@
-package fr.cytech.projetjeespring.controllers.tests;
+package fr.cytech.projetjeespring.controllers.admin;
 
 import fr.cytech.projetjeespring.entities.Employee;
 import fr.cytech.projetjeespring.entities.Role;
@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/db-test/users")
 @RequiredArgsConstructor
-public class UserRoleTestController {
+public class UserManagementController {
 
     private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
