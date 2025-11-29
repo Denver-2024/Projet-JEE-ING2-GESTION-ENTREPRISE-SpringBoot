@@ -1,33 +1,54 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<!DOCTYPE html>
 <html>
+<head>
+    <title>Department Directory</title>
+</head>
 <body>
-<h1>Departments DB Test</h1>
-<a href="/db-test/departments/edit">Create New Department</a> |
-<a href="/db-test/employees">Back to Employees</a>
+<div style="border-bottom: 1px solid #ccc; margin-bottom: 10px;">
+    <a href="/">Dashboard</a> |
+    <sec:authorize access="hasRole('MANAGER')">
+        <a href="/departments/my-department">My Department</a> |
+    </sec:authorize>
+    <a href="/employees">Employee Directory</a>
+</div>
 
-<h3>Search Filters</h3>
-<form action="/db-test/departments" method="get">
-    Name: <input type="text" name="name" /><br/>
-    <button type="submit">Search</button>
-    <a href="/db-test/departments">Clear</a>
-</form>
+<h1>Departments</h1>
 
-<hr/>
-<table border="1">
+<sec:authorize access="hasRole('ADMIN')">
+    <p><a href="/departments/edit"><b>+ Create New Department</b></a></p>
+</sec:authorize>
+
+<table border="1" cellpadding="5" style="width: 100%;">
+    <thead>
     <tr>
-        <th>ID</th><th>Name</th><th>Head</th><th>Actions</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Head of Department</th>
+        <th>Actions</th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach items="${departments}" var="dept">
         <tr>
-            <td>${dept.id}</td>
-            <td>${dept.name}</td>
-            <td>${dept.head.firstName} ${dept.head.lastName}</td>
+            <td><b><a href="/departments/${dept.id}">${dept.name}</a></b></td>
+            <td>${dept.description}</td>
             <td>
-                <a href="/db-test/departments/edit?id=${dept.id}">Edit</a>
-                <a href="/db-test/departments/delete/${dept.id}">Delete</a>
+                <c:if test="${not empty dept.headEmail}">
+                    <a href="mailto:${dept.headEmail}">${dept.headName} (${dept.headEmail})</a>
+                </c:if>
+                <c:if test="${empty dept.headEmail}">VACANT</c:if>
+            </td>
+            <td>
+                <sec:authorize access="hasRole('ADMIN')">
+                    <a href="/departments/edit?id=${dept.id}">Edit</a>
+                    <a href="/departments/delete/${dept.id}" onclick="return confirm('Delete?');">Delete</a>
+                </sec:authorize>
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 </body>
 </html>

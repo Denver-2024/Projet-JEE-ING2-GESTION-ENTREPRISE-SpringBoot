@@ -30,6 +30,10 @@ public class DepartmentService {
         return departmentRepository.findById(id).orElse(null);
     }
 
+    public Department findByHeadId(Integer id) {
+        return departmentRepository.findByHeadId(id);
+    }
+
     @Transactional
     public Department save(Department department) {
         return departmentRepository.save(department);
