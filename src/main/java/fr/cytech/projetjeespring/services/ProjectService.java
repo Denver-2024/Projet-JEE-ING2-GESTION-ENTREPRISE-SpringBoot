@@ -1,19 +1,18 @@
 package fr.cytech.projetjeespring.services;
 
-import fr.cytech.projetjeespring.entities.Employee;
 import fr.cytech.projetjeespring.entities.Project;
 import fr.cytech.projetjeespring.repositories.ProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProjectService {
     // jpp du crud ;w;
-    @Autowired
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
 
     public List<Project> findAll() {
         return projectRepository.findAll();

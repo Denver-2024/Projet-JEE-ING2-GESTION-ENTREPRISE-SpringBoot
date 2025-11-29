@@ -4,20 +4,18 @@ import fr.cytech.projetjeespring.entities.Department;
 import fr.cytech.projetjeespring.entities.Employee;
 import fr.cytech.projetjeespring.repositories.DepartmentRepository;
 import fr.cytech.projetjeespring.repositories.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DepartmentService {
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
+    private final EmployeeRepository employeeRepository;
 
     public List<Department> findAll() {
         return departmentRepository.findAll();

@@ -3,20 +3,18 @@ package fr.cytech.projetjeespring.controllers.tests;
 import fr.cytech.projetjeespring.entities.Department;
 import fr.cytech.projetjeespring.services.DepartmentService;
 import fr.cytech.projetjeespring.services.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/db-test/departments")
+@RequiredArgsConstructor
 public class DepartmentCrudTest {
 
-    @Autowired
-    private DepartmentService departmentService;
-
-    @Autowired
-    private EmployeeService employeeService;
+    private final DepartmentService departmentService;
+    private final EmployeeService employeeService;
 
     @GetMapping
     public String listDepartments(@ModelAttribute Department searchProbe, Model model) {

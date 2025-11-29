@@ -3,20 +3,18 @@ package fr.cytech.projetjeespring.controllers.tests;
 import fr.cytech.projetjeespring.entities.Project;
 import fr.cytech.projetjeespring.services.DepartmentService;
 import fr.cytech.projetjeespring.services.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/db-test/projects")
+@RequiredArgsConstructor
 public class ProjectCrudTest {
 
-    @Autowired
-    private ProjectService projectService;
-
-    @Autowired
-    private DepartmentService departmentService;
+    private final ProjectService projectService;
+    private final DepartmentService departmentService;
 
     @GetMapping
     public String listProjects(@ModelAttribute Project searchProbe, Model model) {
