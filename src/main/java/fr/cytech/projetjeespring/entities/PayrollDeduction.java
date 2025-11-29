@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "payroll_deductions")
 @Data
@@ -20,8 +22,8 @@ public class PayrollDeduction {
 
     private String description;
 
-    @Column(nullable = false)
-    private Float amount;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

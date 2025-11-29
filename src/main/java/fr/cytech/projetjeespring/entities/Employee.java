@@ -7,6 +7,7 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "employees")
@@ -36,8 +37,8 @@ public class Employee {
     @Column(nullable = false)
     private EmployeeType type;
 
-    @Column(nullable = false)
-    private Float salary;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal salary;
 
     @Column(nullable = false)
     private String password;

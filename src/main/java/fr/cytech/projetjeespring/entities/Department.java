@@ -3,8 +3,8 @@ package fr.cytech.projetjeespring.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "departments")
@@ -22,13 +22,20 @@ public class Department {
 
     private String description;
 
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "head_employee_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "department_heads",
+            joinColumns = @JoinColumn(name = "department_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
+    @ToString.Exclude
     private Employee head;
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Employee> employees = new ArrayList<>();
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Project> projects = new ArrayList<>();
 }

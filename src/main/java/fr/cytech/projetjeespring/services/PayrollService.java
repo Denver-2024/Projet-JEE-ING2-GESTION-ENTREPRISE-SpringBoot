@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
@@ -33,43 +34,43 @@ public class PayrollService {
         payslip.setMonthsCount((int) monthsBetween);
 
         payslip.setMonthlyGrossSalary(employee.getSalary());
-        payslip.setTotalGrossSalary(employee.getSalary() * monthsBetween);
+        payslip.setTotalGrossSalary(employee.getSalary().multiply(BigDecimal.valueOf(monthsBetween)));
 
         List<Bonus> bonuses = bonusRepository.findAll().stream()
                 .filter(b -> b.getEmployee().getId().equals(employee.getId()))
                 .filter(b -> !b.getAwardDate().isBefore(startDate) && !b.getAwardDate().isAfter(endDate))
                 .toList();
 
-        float totalBonuses = 0;
+        BigDecimal totalBonuses = BigDecimal.ZERO;
         List<String> bonusDescs = new ArrayList<>();
         for (Bonus b : bonuses) {
-            totalBonuses += b.getAmount();
+            totalBonuses = totalBonuses.add(b.getAmount());
             bonusDescs.add(b.getAwardDate() + ": " + b.getReason() + " (" + b.getAmount() + ")");
         }
         payslip.setTotalBonuses(totalBonuses);
         payslip.setBonusBreakdown(bonusDescs);
 
         List<PayrollDeduction> globalDeductions = deductionRepository.findAll();
-        Map<String, Float> deductionMap = new HashMap<>();
-        float totalDeductions = 0;
+        Map<String, BigDecimal> deductionMap = new HashMap<>();
+        BigDecimal totalDeductions = BigDecimal.ZERO;
 
         for (PayrollDeduction pd : globalDeductions) {
-            float amountPerMonth = 0;
+            BigDecimal amountPerMonth = BigDecimal.ZERO;
             if (pd.getType() == DeductionType.FIXED) {
                 amountPerMonth = pd.getAmount();
             } else {
-                amountPerMonth = employee.getSalary() * (pd.getAmount() / 100.0f);
+                amountPerMonth = employee.getSalary().multiply(pd.getAmount().divide(BigDecimal.valueOf(100)));
             }
 
-            float totalForPeriod = amountPerMonth * monthsBetween;
+            BigDecimal totalForPeriod = amountPerMonth.multiply(BigDecimal.valueOf(monthsBetween));
             deductionMap.put(pd.getName() + " (" + pd.getType() + ": " + pd.getAmount() + ")", totalForPeriod);
-            totalDeductions += totalForPeriod;
+            totalDeductions = totalDeductions.add(totalForPeriod);
         }
 
         payslip.setDeductionBreakdown(deductionMap);
         payslip.setTotalDeductions(totalDeductions);
 
-        payslip.setNetPay((payslip.getTotalGrossSalary() + totalBonuses) - totalDeductions);
+        payslip.setNetPay((payslip.getTotalGrossSalary().add(totalBonuses)).subtract(totalDeductions));
 
         return payslip;
     }

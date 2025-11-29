@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -25,8 +26,8 @@ public class Bonus {
 
     private String reason;
 
-    @Column(nullable = false)
-    private Float amount;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal amount;
 
     @Column(name = "award_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
