@@ -14,13 +14,16 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
+    @Setter
     private Integer id;
 
     @Column(nullable = false)
     @Getter
+    @Setter
     private String name;
 
     @Getter
+    @Setter
     private String description;
 
     @OneToOne(optional = false, fetch = FetchType.LAZY)
@@ -31,9 +34,11 @@ public class Department {
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     @Getter
+    @Setter
     private List<Employee> employees = new ArrayList<>();
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     @Getter
+    @Setter
     private List<Project> projects = new ArrayList<>();
 }
