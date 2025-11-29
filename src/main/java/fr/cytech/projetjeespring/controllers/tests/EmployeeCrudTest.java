@@ -35,6 +35,11 @@ public class EmployeeCrudTest {
 
     @PostMapping("/save")
     public String saveEmployee(@ModelAttribute Employee employee) {
+
+        if (employee.getDepartment() != null && employee.getDepartment().getId() == null) {
+            employee.setDepartment(null);
+        }
+
         employeeService.save(employee);
         return "redirect:/db-test/employees";
     }
