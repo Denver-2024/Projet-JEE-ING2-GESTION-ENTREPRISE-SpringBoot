@@ -14,6 +14,8 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
+    public EmployeeRepository repository() { return this.employeeRepository; }
+
     public List<Employee> findAll() {
         return employeeRepository.findAll();
     }
@@ -27,12 +29,14 @@ public class EmployeeService {
     }
 
     public Employee save(Employee employee) {
-        // TODO: Hasher le mot de passe
-        // employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         return employeeRepository.save(employee);
     }
 
     public void delete(Integer id) {
         employeeRepository.deleteById(id);
+    }
+
+    public List<Employee> search(String keyword, Integer deptId) {
+        return employeeRepository.search(keyword, deptId);
     }
 }

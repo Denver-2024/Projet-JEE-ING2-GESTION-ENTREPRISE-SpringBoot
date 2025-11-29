@@ -1,11 +1,15 @@
 package fr.cytech.projetjeespring.mappers;
 
 import fr.cytech.projetjeespring.dtos.EmployeeFormDTO;
+import fr.cytech.projetjeespring.dtos.EmployeeSummaryDTO;
 import fr.cytech.projetjeespring.entities.Department;
 import fr.cytech.projetjeespring.entities.Employee;
 import fr.cytech.projetjeespring.repositories.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -60,5 +64,30 @@ public class EmployeeMapper {
         } else {
             entity.setDepartment(null);
         }
+    }
+
+    public EmployeeSummaryDTO toSummaryDto(Employee entity) {
+        if (entity == null) return null;
+
+        EmployeeSummaryDTO dto = new EmployeeSummaryDTO();
+        dto.setId(entity.getId());
+        dto.setFirstName(entity.getFirstName());
+        dto.setLastName(entity.getLastName());
+        dto.setEmail(entity.getEmail());
+        dto.setType(entity.getType() != null ? entity.getType().name() : "");
+
+        if (entity.getDepartment() != null) {
+            dto.setDepartmentName(entity.getDepartment().getName());
+        } else {
+            dto.setDepartmentName("Unassigned");
+        }
+        return dto;
+    }
+
+    public List<EmployeeSummaryDTO> toSummaryDtoList(List<Employee> entities) {
+        if (entities == null) return List.of();
+        return entities.stream()
+                .map(this::toSummaryDto)
+                .collect(Collectors.toList());
     }
 }
