@@ -4,7 +4,9 @@ import fr.cytech.projetjeespring.enums.EmployeeType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -42,11 +44,15 @@ public class Employee {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Department department;
 
-    // Sinon on a une FAT récurison infinie, woups!
-    @Override
-    public String toString() {
-        return "Employee{id=" + id + ", email='" + email + "'}";
-    }
+    @ManyToMany(fetch = FetchType.EAGER) // Sans le fecthing eager ca casse et jsp pk
+    @JoinTable(
+            name = "employee_roles",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_name")
+    )
+    private Set<Role> roles = new HashSet<>();
 }
