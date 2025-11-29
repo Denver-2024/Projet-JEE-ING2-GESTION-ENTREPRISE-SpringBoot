@@ -47,7 +47,7 @@ public class DataInitializer {
             Department sales = saveDept("Sales", "Revenue generation");
             Department marketing = saveDept("Marketing", "Making things look pretty");
 
-            saveEmp("Alice", "Admin", "admin@cy.fr", "90000", EmployeeType.SENIOR, null, List.of(adminRole));
+            saveEmp("Alice", "Admin", "admin@cy.fr", "90000", EmployeeType.SENIOR, it, List.of(adminRole));
 
             Employee itHead = saveEmp("Bob", "Bit", "bob@cy.fr", "85000", EmployeeType.SENIOR, it, List.of(mgrRole, empRole));
             setHead(it, itHead);
