@@ -1,6 +1,6 @@
 package fr.cytech.projetjeespring.models;
 
-import fr.cytech.projetjeespring.entities.Employee;
+import fr.cytech.projetjeespring.model.entities.Employee;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDate;

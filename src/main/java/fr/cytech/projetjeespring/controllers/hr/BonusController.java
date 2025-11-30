@@ -1,8 +1,8 @@
 package fr.cytech.projetjeespring.controllers.hr;
 
-import fr.cytech.projetjeespring.dtos.BonusFormDTO;
-import fr.cytech.projetjeespring.entities.Bonus;
-import fr.cytech.projetjeespring.mappers.BonusMapper;
+import fr.cytech.projetjeespring.model.dtos.BonusFormDTO;
+import fr.cytech.projetjeespring.model.entities.Bonus;
+import fr.cytech.projetjeespring.model.mappers.BonusMapper;
 import fr.cytech.projetjeespring.repositories.BonusRepository;
 import fr.cytech.projetjeespring.services.EmployeeService;
 import jakarta.validation.Valid;

@@ -1,7 +1,7 @@
 package fr.cytech.projetjeespring.repositories;
 
-import fr.cytech.projetjeespring.entities.Department;
-import fr.cytech.projetjeespring.entities.Employee;
+import fr.cytech.projetjeespring.model.entities.Department;
+import fr.cytech.projetjeespring.model.entities.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,19 +1,18 @@
-package fr.cytech.projetjeespring.entities;
+package fr.cytech.projetjeespring.model.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bonuses")
+@Table(name = "absences")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bonus {
+public class Absence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +23,21 @@ public class Bonus {
     @ToString.Exclude
     private Employee employee;
 
+    @Column(name = "start_date", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
+
     private String reason;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal amount;
+    @Column(nullable = false)
+    private boolean expected;
 
-    @Column(name = "award_date", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate awardDate;
+    @Column(name = "is_paid_leave", nullable = false)
+    private boolean paidLeave;
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdate;

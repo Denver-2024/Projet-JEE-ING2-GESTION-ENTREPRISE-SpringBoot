@@ -1,8 +1,8 @@
 package fr.cytech.projetjeespring.controllers.admin;
 
-import fr.cytech.projetjeespring.dtos.UserRolesFormDTO;
-import fr.cytech.projetjeespring.entities.Employee;
-import fr.cytech.projetjeespring.entities.Role;
+import fr.cytech.projetjeespring.model.dtos.UserRolesFormDTO;
+import fr.cytech.projetjeespring.model.entities.Employee;
+import fr.cytech.projetjeespring.model.entities.Role;
 import fr.cytech.projetjeespring.repositories.EmployeeRepository;
 import fr.cytech.projetjeespring.repositories.RoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller

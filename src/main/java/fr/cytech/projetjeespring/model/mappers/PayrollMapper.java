@@ -1,7 +1,7 @@
-package fr.cytech.projetjeespring.mappers;
+package fr.cytech.projetjeespring.model.mappers;
 
-import fr.cytech.projetjeespring.dtos.PayrollDeductionFormDTO;
-import fr.cytech.projetjeespring.entities.PayrollDeduction;
+import fr.cytech.projetjeespring.model.dtos.PayrollDeductionFormDTO;
+import fr.cytech.projetjeespring.model.entities.PayrollDeduction;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,6 +1,6 @@
 package fr.cytech.projetjeespring.services;
 
-import fr.cytech.projetjeespring.entities.Project;
+import fr.cytech.projetjeespring.model.entities.Project;
 import fr.cytech.projetjeespring.repositories.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;

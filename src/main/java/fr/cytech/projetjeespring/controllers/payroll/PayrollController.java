@@ -1,9 +1,9 @@
 package fr.cytech.projetjeespring.controllers.payroll;
 
-import fr.cytech.projetjeespring.dtos.PayrollDeductionFormDTO;
-import fr.cytech.projetjeespring.entities.Employee;
-import fr.cytech.projetjeespring.entities.PayrollDeduction;
-import fr.cytech.projetjeespring.mappers.PayrollMapper;
+import fr.cytech.projetjeespring.model.dtos.PayrollDeductionFormDTO;
+import fr.cytech.projetjeespring.model.entities.Employee;
+import fr.cytech.projetjeespring.model.entities.PayrollDeduction;
+import fr.cytech.projetjeespring.model.mappers.PayrollMapper;
 import fr.cytech.projetjeespring.models.PayslipResultDTO;
 import fr.cytech.projetjeespring.repositories.PayrollDeductionRepository;
 import fr.cytech.projetjeespring.services.EmployeeService;

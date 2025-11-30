@@ -1,6 +1,6 @@
 package fr.cytech.projetjeespring.repositories;
 
-import fr.cytech.projetjeespring.entities.Project;
+import fr.cytech.projetjeespring.model.entities.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

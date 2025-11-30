@@ -1,11 +1,10 @@
-package fr.cytech.projetjeespring.entities;
+package fr.cytech.projetjeespring.model.entities;
 
 import fr.cytech.projetjeespring.enums.EmployeeType;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.math.BigDecimal;
 

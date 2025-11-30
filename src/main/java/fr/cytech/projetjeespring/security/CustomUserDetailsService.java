@@ -1,6 +1,6 @@
 package fr.cytech.projetjeespring.security;
 
-import fr.cytech.projetjeespring.entities.Employee;
+import fr.cytech.projetjeespring.model.entities.Employee;
 import fr.cytech.projetjeespring.repositories.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,8 +1,8 @@
-package fr.cytech.projetjeespring.mappers;
+package fr.cytech.projetjeespring.model.mappers;
 
-import fr.cytech.projetjeespring.dtos.AbsenceFormDTO;
-import fr.cytech.projetjeespring.entities.Absence;
-import fr.cytech.projetjeespring.entities.Employee;
+import fr.cytech.projetjeespring.model.dtos.AbsenceFormDTO;
+import fr.cytech.projetjeespring.model.entities.Absence;
+import fr.cytech.projetjeespring.model.entities.Employee;
 import fr.cytech.projetjeespring.repositories.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

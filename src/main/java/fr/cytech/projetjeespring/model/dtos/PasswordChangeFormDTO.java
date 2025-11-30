@@ -1,4 +1,4 @@
-package fr.cytech.projetjeespring.dtos;
+package fr.cytech.projetjeespring.model.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

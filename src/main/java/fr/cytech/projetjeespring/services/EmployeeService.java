@@ -1,7 +1,6 @@
 package fr.cytech.projetjeespring.services;
 
-import ch.qos.logback.core.boolex.Matcher;
-import fr.cytech.projetjeespring.entities.Employee;
+import fr.cytech.projetjeespring.model.entities.Employee;
 import fr.cytech.projetjeespring.repositories.EmployeeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

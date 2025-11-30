@@ -1,10 +1,9 @@
 package fr.cytech.projetjeespring.controllers.department;
 
-import fr.cytech.projetjeespring.dtos.DepartmentFormDTO;
-import fr.cytech.projetjeespring.dtos.DepartmentSummaryDTO;
-import fr.cytech.projetjeespring.entities.Department;
-import fr.cytech.projetjeespring.entities.Employee;
-import fr.cytech.projetjeespring.mappers.DepartmentMapper;
+import fr.cytech.projetjeespring.model.dtos.DepartmentFormDTO;
+import fr.cytech.projetjeespring.model.dtos.DepartmentSummaryDTO;
+import fr.cytech.projetjeespring.model.entities.Department;
+import fr.cytech.projetjeespring.model.mappers.DepartmentMapper;
 import fr.cytech.projetjeespring.services.DepartmentService;
 import fr.cytech.projetjeespring.services.EmployeeService;
 import jakarta.validation.Valid;

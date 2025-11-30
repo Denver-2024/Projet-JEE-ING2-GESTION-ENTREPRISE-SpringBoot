@@ -1,16 +1,14 @@
 package fr.cytech.projetjeespring.controllers.employee;
 
-import fr.cytech.projetjeespring.dtos.EmployeeFormDTO;
-import fr.cytech.projetjeespring.dtos.EmployeeSummaryDTO;
-import fr.cytech.projetjeespring.dtos.PasswordChangeFormDTO;
-import fr.cytech.projetjeespring.entities.Employee;
-import fr.cytech.projetjeespring.mappers.EmployeeMapper;
+import fr.cytech.projetjeespring.model.dtos.EmployeeFormDTO;
+import fr.cytech.projetjeespring.model.dtos.EmployeeSummaryDTO;
+import fr.cytech.projetjeespring.model.dtos.PasswordChangeFormDTO;
+import fr.cytech.projetjeespring.model.entities.Employee;
+import fr.cytech.projetjeespring.model.mappers.EmployeeMapper;
 import fr.cytech.projetjeespring.services.DepartmentService;
 import fr.cytech.projetjeespring.services.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;

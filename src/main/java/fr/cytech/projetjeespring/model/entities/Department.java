@@ -1,4 +1,4 @@
-package fr.cytech.projetjeespring.entities;
+package fr.cytech.projetjeespring.model.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

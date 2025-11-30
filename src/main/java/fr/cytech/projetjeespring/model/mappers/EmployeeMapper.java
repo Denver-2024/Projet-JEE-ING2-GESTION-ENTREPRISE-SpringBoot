@@ -1,9 +1,9 @@
-package fr.cytech.projetjeespring.mappers;
+package fr.cytech.projetjeespring.model.mappers;
 
-import fr.cytech.projetjeespring.dtos.EmployeeFormDTO;
-import fr.cytech.projetjeespring.dtos.EmployeeSummaryDTO;
-import fr.cytech.projetjeespring.entities.Department;
-import fr.cytech.projetjeespring.entities.Employee;
+import fr.cytech.projetjeespring.model.dtos.EmployeeFormDTO;
+import fr.cytech.projetjeespring.model.dtos.EmployeeSummaryDTO;
+import fr.cytech.projetjeespring.model.entities.Department;
+import fr.cytech.projetjeespring.model.entities.Employee;
 import fr.cytech.projetjeespring.repositories.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

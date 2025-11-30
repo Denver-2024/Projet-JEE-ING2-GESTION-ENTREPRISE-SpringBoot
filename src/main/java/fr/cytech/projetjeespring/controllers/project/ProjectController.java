@@ -1,10 +1,10 @@
 package fr.cytech.projetjeespring.controllers.project;
 
-import fr.cytech.projetjeespring.dtos.ProjectFormDTO;
-import fr.cytech.projetjeespring.dtos.ProjectSummaryDTO;
-import fr.cytech.projetjeespring.entities.Employee;
-import fr.cytech.projetjeespring.entities.Project;
-import fr.cytech.projetjeespring.mappers.ProjectMapper;
+import fr.cytech.projetjeespring.model.dtos.ProjectFormDTO;
+import fr.cytech.projetjeespring.model.dtos.ProjectSummaryDTO;
+import fr.cytech.projetjeespring.model.entities.Employee;
+import fr.cytech.projetjeespring.model.entities.Project;
+import fr.cytech.projetjeespring.model.mappers.ProjectMapper;
 import fr.cytech.projetjeespring.repositories.ProjectRepository; // Direct repo access for custom queries
 import fr.cytech.projetjeespring.services.DepartmentService;
 import fr.cytech.projetjeespring.services.EmployeeService;

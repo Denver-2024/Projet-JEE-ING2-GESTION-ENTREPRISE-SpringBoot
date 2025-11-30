@@ -1,4 +1,4 @@
-package fr.cytech.projetjeespring.dtos;
+package fr.cytech.projetjeespring.model.dtos;
 
 import lombok.Data;
 import java.util.ArrayList;

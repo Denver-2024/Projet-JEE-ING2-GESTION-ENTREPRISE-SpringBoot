@@ -1,8 +1,8 @@
 package fr.cytech.projetjeespring.controllers.hr;
 
-import fr.cytech.projetjeespring.dtos.AbsenceFormDTO;
-import fr.cytech.projetjeespring.entities.Absence;
-import fr.cytech.projetjeespring.mappers.AbsenceMapper;
+import fr.cytech.projetjeespring.model.dtos.AbsenceFormDTO;
+import fr.cytech.projetjeespring.model.entities.Absence;
+import fr.cytech.projetjeespring.model.mappers.AbsenceMapper;
 import fr.cytech.projetjeespring.repositories.AbsenceRepository;
 import fr.cytech.projetjeespring.services.EmployeeService;
 import jakarta.validation.Valid;

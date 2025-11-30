@@ -1,6 +1,6 @@
 package fr.cytech.projetjeespring.services;
 
-import fr.cytech.projetjeespring.entities.*;
+import fr.cytech.projetjeespring.model.entities.*;
 import fr.cytech.projetjeespring.enums.DeductionType;
 import fr.cytech.projetjeespring.models.PayslipResultDTO;
 import fr.cytech.projetjeespring.repositories.AbsenceRepository;
