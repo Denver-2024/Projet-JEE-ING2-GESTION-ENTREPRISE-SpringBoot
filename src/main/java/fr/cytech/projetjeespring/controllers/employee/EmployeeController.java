@@ -2,6 +2,7 @@ package fr.cytech.projetjeespring.controllers.employee;
 
 import fr.cytech.projetjeespring.dtos.EmployeeFormDTO;
 import fr.cytech.projetjeespring.dtos.EmployeeSummaryDTO;
+import fr.cytech.projetjeespring.dtos.PasswordChangeFormDTO;
 import fr.cytech.projetjeespring.entities.Employee;
 import fr.cytech.projetjeespring.mappers.EmployeeMapper;
 import fr.cytech.projetjeespring.services.DepartmentService;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,5 +99,38 @@ public class EmployeeController {
     public String deleteEmployee(@PathVariable Integer id) {
         employeeService.delete(id);
         return "redirect:/employees";
+    }
+
+
+    @GetMapping("/change-password")
+    public String changePasswordForm(Model model) {
+        model.addAttribute("passwordForm", new PasswordChangeFormDTO());
+        return "employees/change_password";
+    }
+
+    @PostMapping("/change-password")
+    public String updatePassword(@Valid @ModelAttribute("passwordForm") PasswordChangeFormDTO dto,
+                                 BindingResult result,
+                                 Authentication auth,
+                                 Model model) {
+
+        if (result.hasErrors()) {
+            return "employees/change_password";
+        }
+
+        if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
+            result.rejectValue("confirmPassword", "error.passwordForm", "New passwords do not match");
+            return "employees/change_password";
+        }
+
+        try {
+            Integer myId = Integer.parseInt(auth.getName());
+            employeeService.changePassword(myId, dto.getOldPassword(), dto.getNewPassword());
+        } catch (BadCredentialsException e) {
+            result.rejectValue("oldPassword", "error.passwordForm", "Incorrect current password");
+            return "employees/change_password";
+        }
+
+        return "redirect:/employees/profile?passwordChanged=true";
     }
 }

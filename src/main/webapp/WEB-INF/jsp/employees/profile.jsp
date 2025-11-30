@@ -15,6 +15,13 @@
 
 <div style="border: 1px solid #ddd; padding: 20px; width: 50%;">
     <h2>${employee.firstName} ${employee.lastName}</h2>
+
+    <c:if test="${param.passwordChanged == 'true'}">
+        <div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border: 1px solid #c3e6cb;">
+            Password updated successfully!
+        </div>
+    </c:if>
+
     <p><strong>Employee ID:</strong> ${employee.id}</p>
     <p><strong>Email:</strong> ${employee.email}</p>
     <p><strong>Department:</strong> ${employee.department != null ? employee.department.name : 'None'}</p>
@@ -34,6 +41,11 @@
             <li>${role.name}</li>
         </c:forEach>
     </ul>
+
+    <hr/>
+    <a href="/employees/change-password" style="background: #eee; padding: 5px 10px; text-decoration: none; border: 1px solid #ccc;">
+        Change My Password
+    </a>
 </div>
 </body>
 </html>
