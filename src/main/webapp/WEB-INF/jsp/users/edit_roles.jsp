@@ -1,31 +1,33 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
 <html>
+<head>
+    <title>Edit Roles</title>
+</head>
 <body>
-<h1>Manage Roles for ${employee.firstName} ${employee.lastName}</h1>
+<div style="border-bottom: 1px solid #ccc; margin-bottom: 10px;">
+    <a href="/admin/users">Back to User List</a>
+</div>
 
-<form action="/db-test/users/save-roles" method="post">
-    <input type="hidden" name="employeeId" value="${employee.id}" />
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<h1>Manage Roles: ${userRolesForm.employeeName}</h1>
 
-    <h3>Check roles to assign:</h3>
+<form:form method="post" action="/admin/users/roles/save" modelAttribute="userRolesForm">
+    <form:hidden path="employeeId" />
+
+    <h3>Select Roles</h3>
+    <p><i>Note: 'ROLE_EMPLOYEE' is required for basic access.</i></p>
+
     <c:forEach items="${allRoles}" var="role">
-        <c:set var="hasRole" value="false" />
-        <c:forEach items="${employee.roles}" var="empRole">
-            <c:if test="${empRole.name eq role.name}">
-                <c:set var="hasRole" value="true" />
-            </c:if>
-        </c:forEach>
-
-        <div>
-            <input type="checkbox" name="roleNames" value="${role.name}"
-                ${hasRole ? 'checked' : ''} />
-                ${role.name}
+        <div style="margin-bottom: 10px;">
+            <form:checkbox path="selectedRoles" value="${role.name}" />
+            <label><b>${role.name}</b></label>
         </div>
     </c:forEach>
+
     <br/>
     <button type="submit">Save Roles</button>
-</form>
-<br/>
-<a href="/db-test/users">Cancel</a>
+    <a href="/admin/users">Cancel</a>
+</form:form>
 </body>
 </html>

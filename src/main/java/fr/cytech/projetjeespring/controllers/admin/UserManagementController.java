@@ -1,5 +1,6 @@
 package fr.cytech.projetjeespring.controllers.admin;
 
+import fr.cytech.projetjeespring.dtos.UserRolesFormDTO;
 import fr.cytech.projetjeespring.entities.Employee;
 import fr.cytech.projetjeespring.entities.Role;
 import fr.cytech.projetjeespring.repositories.EmployeeRepository;
@@ -12,10 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/db-test/users")
+@RequestMapping("/admin/users")
+@PreAuthorize("hasRole('ADMIN')")
 @RequiredArgsConstructor
 public class UserManagementController {
 
@@ -23,47 +25,50 @@ public class UserManagementController {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public String listUsers(Model model) {
+        // In a real app, use pagination here.
         model.addAttribute("employees", employeeRepository.findAll());
         return "users/list";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/edit-roles/{id}")
+    @GetMapping("/roles/{id}")
     public String editUserRoles(@PathVariable Integer id, Model model) {
-        Employee employee = employeeRepository.findById(id).orElseThrow();
-        List<Role> allRoles = roleRepository.findAll();
+        Employee emp = employeeRepository.findById(id).orElseThrow();
 
-        model.addAttribute("employee", employee);
-        model.addAttribute("allRoles", allRoles);
+        UserRolesFormDTO dto = new UserRolesFormDTO();
+        dto.setEmployeeId(emp.getId());
+        dto.setEmployeeName(emp.getFirstName() + " " + emp.getLastName());
+
+        dto.setSelectedRoles(emp.getRoles().stream()
+                .map(Role::getName)
+                .collect(Collectors.toList()));
+
+        model.addAttribute("userRolesForm", dto);
+        model.addAttribute("allRoles", roleRepository.findAll());
         return "users/edit_roles";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/save-roles")
-    public String saveUserRoles(@RequestParam Integer employeeId, @RequestParam(required = false) List<String> roleNames) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow();
+    @PostMapping("/roles/save")
+    public String saveUserRoles(@ModelAttribute UserRolesFormDTO dto) {
+        Employee emp = employeeRepository.findById(dto.getEmployeeId()).orElseThrow();
 
-        employee.getRoles().clear();
-        if (roleNames != null) {
-            for (String roleName : roleNames) {
-                Optional<Role> role = roleRepository.findById(roleName);
-                role.ifPresent(value -> employee.getRoles().add(value));
+        emp.getRoles().clear();
+        if (dto.getSelectedRoles() != null) {
+            for (String roleName : dto.getSelectedRoles()) {
+                roleRepository.findById(roleName).ifPresent(emp.getRoles()::add);
             }
         }
 
-        employeeRepository.save(employee);
-        return "redirect:/db-test/users";
+        employeeRepository.save(emp);
+        return "redirect:/admin/users";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/reset-pass/{id}")
+    @GetMapping("/reset-password/{id}")
     public String resetPassword(@PathVariable Integer id) {
         Employee emp = employeeRepository.findById(id).orElseThrow();
-        emp.setPassword(passwordEncoder.encode("password")); // Default pass
+        emp.setPassword(passwordEncoder.encode("password"));
         employeeRepository.save(emp);
-        return "redirect:/db-test/users";
+        return "redirect:/admin/users?reset=success&id=" + id;
     }
 }
