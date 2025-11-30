@@ -78,7 +78,7 @@
             <td><a href="mailto:${emp.email}">${emp.email}</a></td>
             <td>${emp.type}</td>
             <td>
-                <sec:authorize access="hasAnyRole('HR')">
+                <sec:authorize access="hasAnyRole('ADMIN', 'HR')">
                     <a href="/payroll/generate?employeeId=${emp.id}">[Payslip]</a>
                 </sec:authorize>
 
