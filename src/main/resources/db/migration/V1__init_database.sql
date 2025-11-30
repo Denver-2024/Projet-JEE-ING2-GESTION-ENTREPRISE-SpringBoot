@@ -76,7 +76,6 @@ CREATE TABLE bonuses (
     CONSTRAINT fk_bonus_employee FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
 );
 
--- 9. Payroll Deductions
 CREATE TABLE payroll_deductions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,

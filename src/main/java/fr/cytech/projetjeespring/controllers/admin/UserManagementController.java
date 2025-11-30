@@ -26,7 +26,6 @@ public class UserManagementController {
 
     @GetMapping
     public String listUsers(Model model) {
-        // In a real app, use pagination here.
         model.addAttribute("employees", employeeRepository.findAll());
         return "users/list";
     }
