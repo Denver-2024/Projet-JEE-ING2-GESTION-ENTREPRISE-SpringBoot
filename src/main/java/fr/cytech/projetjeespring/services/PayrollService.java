@@ -30,7 +30,6 @@ public class PayrollService {
 
         List<Absence> unpaidAbsences = absenceRepository.findAll().stream()
                 .filter(a -> a.getEmployee().getId().equals(employee.getId()))
-                .filter(Absence::isPaidLeave)
                 .filter(a -> !a.isPaidLeave())
                 .toList();
 
@@ -40,11 +39,15 @@ public class PayrollService {
         int unpaidDays = 0;
 
         LocalDate current = startDate;
+
         while (!current.isAfter(endDate)) {
             daysCovered++;
 
-            int daysInMonth = current.lengthOfMonth();
-            BigDecimal dailyRate = employee.getSalary().divide(new BigDecimal(daysInMonth), 4, RoundingMode.HALF_UP);
+            int daysInCurrentMonth = current.lengthOfMonth();
+            BigDecimal dailyRate = employee.getSalary()
+                    .divide(new BigDecimal(daysInCurrentMonth), 10, RoundingMode.HALF_UP);
+
+            accumulatedBaseSalary = accumulatedBaseSalary.add(dailyRate);
 
             boolean isUnpaid = false;
             for (Absence abs : unpaidAbsences) {
@@ -54,8 +57,6 @@ public class PayrollService {
                     break;
                 }
             }
-
-            accumulatedBaseSalary = accumulatedBaseSalary.add(dailyRate);
 
             if (isUnpaid) {
                 accumulatedDeduction = accumulatedDeduction.add(dailyRate);
@@ -67,6 +68,7 @@ public class PayrollService {
 
         payslip.setTotalDaysCovered(daysCovered);
         payslip.setUnpaidAbsenceDays(unpaidDays);
+
         payslip.setBaseSalaryForPeriod(accumulatedBaseSalary.setScale(2, RoundingMode.HALF_UP));
         payslip.setAbsenceDeduction(accumulatedDeduction.setScale(2, RoundingMode.HALF_UP));
 
@@ -95,11 +97,12 @@ public class PayrollService {
 
         for (PayrollDeduction pd : globalDeductions) {
             BigDecimal taxAmount;
+
             if (pd.getType() == DeductionType.FIXED) {
-                BigDecimal ratio = new BigDecimal(daysCovered).divide(new BigDecimal(30), 4, RoundingMode.HALF_UP);
+                BigDecimal ratio = new BigDecimal(daysCovered).divide(new BigDecimal(30), 10, RoundingMode.HALF_UP);
                 taxAmount = pd.getAmount().multiply(ratio);
             } else {
-                BigDecimal percentage = pd.getAmount().divide(new BigDecimal("100"), 4, RoundingMode.HALF_UP);
+                BigDecimal percentage = pd.getAmount().divide(new BigDecimal("100"), 10, RoundingMode.HALF_UP);
                 taxAmount = taxableIncome.multiply(percentage);
             }
 
@@ -111,7 +114,7 @@ public class PayrollService {
         payslip.setDeductionBreakdown(deductionMap);
         payslip.setTotalDeductions(totalTax);
 
-        payslip.setNetPay(taxableIncome.subtract(totalTax));
+        payslip.setNetPay(taxableIncome.subtract(totalTax).setScale(2, RoundingMode.HALF_UP));
 
         return payslip;
     }
